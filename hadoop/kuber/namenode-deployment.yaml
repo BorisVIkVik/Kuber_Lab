@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml --out ./kuber
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: namenode
+  name: namenode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: namenode
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml --out ./kuber
+        kompose.version: 1.38.0 (HEAD)
+      labels:
+        io.kompose.service: namenode
+    spec:
+      containers:
+        - args:
+            - bash
+            - -c
+            - hdfs namenode && hdfs dfs -mkdir /test
+          env:
+            - name: ENSURE_NAMENODE_DIR
+              value: /tmp/hadoop-root/dfs/name
+          image: namenode
+          name: namenode
+          ports:
+            - containerPort: 9870
+              protocol: TCP
+            - containerPort: 8020
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
+              name: namenode-cm0
+              subPath: core-site.xml
+            - mountPath: /opt/hadoop/etc/hadoop/hdfs-site.xml
+              name: namenode-cm1
+              subPath: hdfs-site.xml
+            - mountPath: /opt/hadoop/etc/hadoop/mapred-site.xml
+              name: namenode-cm2
+              subPath: mapred-site.xml
+            - mountPath: /opt/hadoop/etc/hadoop/yarn-site.xml
+              name: namenode-cm3
+              subPath: yarn-site.xml
+      hostname: namenode
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            items:
+              - key: core-site.xml
+                path: core-site.xml
+            name: namenode-cm0
+          name: namenode-cm0
+        - configMap:
+            items:
+              - key: hdfs-site.xml
+                path: hdfs-site.xml
+            name: namenode-cm1
+          name: namenode-cm1
+        - configMap:
+            items:
+              - key: mapred-site.xml
+                path: mapred-site.xml
+            name: namenode-cm2
+          name: namenode-cm2
+        - configMap:
+            items:
+              - key: yarn-site.xml
+                path: yarn-site.xml
+            name: namenode-cm3
+          name: namenode-cm3

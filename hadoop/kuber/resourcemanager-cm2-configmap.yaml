@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  hdfs-site.xml: |-
+    <configuration>
+    <property><name>dfs.datanode.hostname</name><value>localhost</value></property>
+    <property><name>dfs.datanode.address</name><value>0.0.0.0:9867</value></property>
+    <property><name>dfs.datanode.ipc.address</name><value>0.0.0.0:9865</value></property>
+    </configuration>
+kind: ConfigMap
+metadata:
+  annotations:
+    use-subpath: "true"
+  labels:
+    io.kompose.service: resourcemanager
+  name: resourcemanager-cm2
