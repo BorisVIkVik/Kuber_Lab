@@ -20,21 +20,38 @@ spec:
       labels:
         io.kompose.service: datanode1
     spec:
+      hostname: datanode1 
       containers:
         - args:
             - bash
             - -c
             - chmod 777 /opt/hadoop/etc/hadoop/hdfs-site.xml && hdfs datanode & yarn nodemanager
           env:
+            - name: CORE-SITE.XML_fs.defaultFS
+              value: hdfs://namenode:8020
+            # hdfs-site — общие настройки кластера
+            - name: HDFS-SITE.XML_dfs.namenode.rpc-address
+              value: namenode:8020
+            - name: HDFS-SITE.XML_dfs.replication
+              value: "1"
+            - name: HDFS-SITE.XML_dfs.client.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.datanode.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.permissions.enabled
+              value: "false"
             - name: HDFS-SITE.XML_dfs.datanode.address
               value: 0.0.0.0:9867
             - name: HDFS-SITE.XML_dfs.datanode.hostname
-              value: localhost
+              value: datanode1
             - name: HDFS-SITE.XML_dfs.datanode.ipc.address
               value: 0.0.0.0:9865
             - name: HDFS-SITE.XML_dfs.datanode.permissions.enabled
               value: "false"
           image: borisvikvik/hadoop-datanode:latest
+          volumeMounts:
+          - name: my-storage
+            mountPath: /data
           name: datanode1
           ports:
             - containerPort: 9864
@@ -43,4 +60,8 @@ spec:
               protocol: TCP
             - containerPort: 9867
               protocol: TCP
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc
       restartPolicy: Always

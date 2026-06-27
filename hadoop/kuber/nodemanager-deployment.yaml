@@ -41,6 +41,8 @@ spec:
             - mountPath: /opt/hadoop/etc/hadoop/yarn-site.xml
               name: nodemanager-cm3
               subPath: yarn-site.xml
+            - name: my-storage
+              mountPath: /data
       restartPolicy: Always
       volumes:
         - configMap:
@@ -67,3 +69,6 @@ spec:
                 path: yarn-site.xml
             name: nodemanager-cm3
           name: nodemanager-cm3
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc

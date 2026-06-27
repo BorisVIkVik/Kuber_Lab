@@ -30,6 +30,16 @@ spec:
           env:
             - name: ENSURE_NAMENODE_DIR
               value: /tmp/hadoop-root/dfs/name
+            - name: HDFS-SITE.XML_dfs.client.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.datanode.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.namenode.rpc-address
+              value: namenode:8020
+            - name: HDFS-SITE.XML_dfs.permissions.enabled
+              value: "false"
+            - name: HDFS-SITE.XML_dfs.replication
+              value: "1"
           image: borisvikvik/hadoop-namenode:latest
           name: namenode
           ports:
@@ -41,15 +51,14 @@ spec:
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
               name: namenode-cm0
               subPath: core-site.xml
-            - mountPath: /opt/hadoop/etc/hadoop/hdfs-site.xml
-              name: namenode-cm1
-              subPath: hdfs-site.xml
             - mountPath: /opt/hadoop/etc/hadoop/mapred-site.xml
-              name: namenode-cm2
+              name: namenode-cm1
               subPath: mapred-site.xml
             - mountPath: /opt/hadoop/etc/hadoop/yarn-site.xml
-              name: namenode-cm3
+              name: namenode-cm2
               subPath: yarn-site.xml
+            - name: my-storage
+              mountPath: /data
       hostname: namenode
       restartPolicy: Always
       volumes:
@@ -61,19 +70,16 @@ spec:
           name: namenode-cm0
         - configMap:
             items:
-              - key: hdfs-site.xml
-                path: hdfs-site.xml
+              - key: mapred-site.xml
+                path: mapred-site.xml
             name: namenode-cm1
           name: namenode-cm1
         - configMap:
             items:
-              - key: mapred-site.xml
-                path: mapred-site.xml
-            name: namenode-cm2
-          name: namenode-cm2
-        - configMap:
-            items:
               - key: yarn-site.xml
                 path: yarn-site.xml
-            name: namenode-cm3
-          name: namenode-cm3
+            name: namenode-cm2
+          name: namenode-cm2
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc

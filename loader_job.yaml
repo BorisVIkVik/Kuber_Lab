@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hdfs-upload-food
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: hdfs-client
+          image: borisvikvik/hadoop-namenode:latest   # есть hdfs-клиент
+          command:
+            - bash
+            - -c
+            - |
+              set -e
+              echo "Waiting for HDFS..."
+              until hdfs dfs -ls / 2>/dev/null; do
+                sleep 5
+              done
+              hdfs dfs -mkdir -p /data
+              hdfs dfs -put -f /data/food.parquet /data/food.parquet
+              hdfs dfs -ls /data
+          env:
+            - name: HDFS-SITE.XML_dfs.client.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.datanode.use.datanode.hostname
+              value: "true"
+            - name: HDFS-SITE.XML_dfs.namenode.rpc-address
+              value: namenode:8020
+            - name: HDFS-SITE.XML_dfs.permissions.enabled
+              value: "false"
+          volumeMounts:
+            - name: my-storage
+              mountPath: /data          # PVC: файл food.parquet здесь
+            - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
+              name: namenode-cm0
+              subPath: core-site.xml
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc
+        - name: namenode-cm0
+          configMap:
+            name: namenode-cm0
+            items:
+              - key: core-site.xml
+                path: core-site.xml

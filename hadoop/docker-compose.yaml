@@ -25,6 +25,8 @@ services:
       image: borisvikvik/hadoop-namenode:latest
       hostname: namenode
       command: bash -c "hdfs namenode && hdfs dfs -mkdir /test"
+      networks:
+        - hadoop-net
       platform: linux/arm64
       ports:
         - 9870:9870
@@ -34,10 +36,15 @@ services:
       environment:
           ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
           HDFS-SITE.XML_dfs.permissions.enabled: false
+          HDFS-SITE.XML_dfs.namenode.rpc-address: namenode:8020
+          HDFS-SITE.XML_dfs.replication: 1
+          HDFS-SITE.XML_dfs.client.use.datanode.hostname: true
+          HDFS-SITE.XML_dfs.datanode.use.datanode.hostname: true
+
       volumes:
       # # - /Users/bw/GITS/ITMO/SPARL_LAB2/data:/data
       - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
-      - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      # - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
       - ./mapred-site.xml:/opt/hadoop/etc/hadoop/mapred-site.xml
       - ./yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
    datanode1:
@@ -46,6 +53,8 @@ services:
       command: >
         bash -c "chmod 777 /opt/hadoop/etc/hadoop/hdfs-site.xml && hdfs datanode & yarn nodemanager"
       platform: linux/arm64
+      networks:
+        - hadoop-net
       ports:
       - "9864:9864"   # DataNode Web UI
       - "9865:9865"
@@ -69,6 +78,8 @@ services:
       hostname: resourcemanager
       command: ["yarn", "resourcemanager"]
       platform: linux/arm64
+      networks:
+        - hadoop-net
       ports:
          - 8088:8088
       # env_file:
@@ -84,6 +95,8 @@ services:
       image: borisvikvik/hadoop-nodemanager:latest
       command: ["yarn", "nodemanager"]
       platform: linux/arm64
+      networks:
+        - hadoop-net
       volumes:
         - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
         - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
@@ -94,24 +107,27 @@ services:
    spark-py:
     build: ../pyspark_app/
     image: borisvikvik/pyspark_app
-    # image: borisvikvik/apache/spark-py
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 16G  # Или 16G по вашему Mac M1
-    #     reservations:
-    #       memory: 8G
-    command: bash -c "sleep 20 && python src/load.py && python main.py"
-    # environment:
-    #   - SPARK_EXECUTOR_MEMORY=2g
-    #   - SPARK_DRIVER_MEMORY=8g
-    #   - SPARK_EXECUTOR_CORES=1
-    #   - SPARK_SQL_ADAPTIVE_ENABLED=true
-    #   - SPARK_SQL_FILES_MAX_PARTITION_BYTES=134217728 
+    # image: 
+    deploy:
+      resources:
+        limits:
+          memory: 16G  # Или 16G по вашему Mac M1
+        reservations:
+          memory: 8G
+    command: bash -c "sleep 29 && /var/lib/python src/load.py && /var/lib/python main.py"
+    environment:
+      - SPARK_EXECUTOR_MEMORY=2g
+      - SPARK_DRIVER_MEMORY=8g
+      - SPARK_EXECUTOR_CORES=1
+      - SPARK_SQL_ADAPTIVE_ENABLED=true
+      - SPARK_SQL_FILES_MAX_PARTITION_BYTES=134217728 
+    # volumes:
+    #   - ../pyspark_app/data:/app/data
     # volumes:
         # - /Users/bw/GITS/ITMO/Scala_Lab/model/load.py:/opt/load.py
 
 
 networks:
-  default:
+  hadoop-net:
     name: hadoop-net
+    # external: true

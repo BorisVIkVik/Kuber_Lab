@@ -46,6 +46,8 @@ spec:
             - mountPath: /opt/hadoop/etc/hadoop/yarn-site.xml
               name: resourcemanager-cm4
               subPath: yarn-site.xml
+            - name: my-storage
+              mountPath: /data
       hostname: resourcemanager
       restartPolicy: Always
       volumes:
@@ -76,3 +78,6 @@ spec:
                 path: yarn-site.xml
             name: resourcemanager-cm4
           name: resourcemanager-cm4
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc

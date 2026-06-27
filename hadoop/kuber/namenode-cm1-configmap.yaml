@@ -1,11 +1,23 @@
 apiVersion: v1
 data:
-  hdfs-site.xml: |-
+  mapred-site.xml: |-
     <configuration>
-    <property><name>dfs.datanode.hostname</name><value>localhost</value></property>
-    <property><name>dfs.datanode.address</name><value>0.0.0.0:9867</value></property>
-    <property><name>dfs.datanode.ipc.address</name><value>0.0.0.0:9865</value></property>
-    <property><name>dfs.datanode.permissions.enabled</name><value>false</value></property>
+      <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+      </property>
+      <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+      </property>
+      <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+      </property>
+      <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+      </property>
     </configuration>
 kind: ConfigMap
 metadata:

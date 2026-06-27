@@ -1,3 +1,7 @@
 <configuration>
+<property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
 <property><name>dfs.permissions.enabled</name><value>false</value></property>
+<property><name>dfs.datanode.use.datanode.hostname</name><value>true</value></property>
+<property><name>dfs.replication</name><value>1</value></property>
+<property><name>dfs.namenode.rpc-address</name><value>namenode:8020</value></property>
 </configuration>
