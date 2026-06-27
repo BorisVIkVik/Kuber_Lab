@@ -34,7 +34,7 @@ object FileDemo {
   
     import spark.implicits._
     println("Начинаю загрузку!")
-    val df = spark.read.parquet("hdfs://localhost:8020/test/output.parquet")
+    val df = spark.read.parquet("hdfs://namenode:8020/test/output.parquet")
     println("Данные успешно загружены!")
     val tmp = df.select("known_ingredients_n")
     

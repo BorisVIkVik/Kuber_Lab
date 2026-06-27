@@ -18,6 +18,8 @@ javaOptions ++= Seq(
 )
 
 dockerBaseImage := "eclipse-temurin:11"
+Docker / packageName := "borisvikvik/scala-datamart"
+Docker / dockerUpdateLatest := true
 
 outputStrategy := Some(StdoutOutput)
 

@@ -1,12 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: example-job
+  name: scala-job
 spec:
   template:
     spec:
       containers:
-      - name: busybox
-        image: busybox:latest
-        command: ["echo", "Job completed successfully!"]
+      - name: scala-datamart
+        image: borisvikvik/scala-datamart:1.0
       restartPolicy: Never
