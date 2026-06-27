@@ -1,3 +1,4 @@
 /project/project/
 /project/target/
 /project/build.properties
+/pyspark_app/src/__pycache__/
