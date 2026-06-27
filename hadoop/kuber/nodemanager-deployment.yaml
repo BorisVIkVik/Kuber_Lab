@@ -26,7 +26,7 @@ spec:
         - args:
             - yarn
             - nodemanager
-          image: nodemanager
+          image: borisvikvik/hadoop-nodemanager:latest
           name: nodemanager
           volumeMounts:
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml

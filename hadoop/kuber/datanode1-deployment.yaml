@@ -12,8 +12,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: datanode1
-  strategy:
-    type: Recreate
   template:
     metadata:
       annotations:
@@ -26,7 +24,7 @@ spec:
         - args:
             - bash
             - -c
-            - hdfs datanode & yarn nodemanager
+            - chmod 777 /opt/hadoop/etc/hadoop/hdfs-site.xml && hdfs datanode & yarn nodemanager
           env:
             - name: HDFS-SITE.XML_dfs.datanode.address
               value: 0.0.0.0:9867
@@ -34,7 +32,9 @@ spec:
               value: localhost
             - name: HDFS-SITE.XML_dfs.datanode.ipc.address
               value: 0.0.0.0:9865
-          image: datanode1
+            - name: HDFS-SITE.XML_dfs.datanode.permissions.enabled
+              value: "false"
+          image: borisvikvik/hadoop-datanode:latest
           name: datanode1
           ports:
             - containerPort: 9864
@@ -43,42 +43,4 @@ spec:
               protocol: TCP
             - containerPort: 9867
               protocol: TCP
-          volumeMounts:
-            - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
-              name: datanode1-cm0
-              subPath: core-site.xml
-            - mountPath: /opt/hadoop/etc/hadoop/hdfs-site.xml
-              name: datanode1-cm1
-              subPath: hdfs-site.xml
-            - mountPath: /opt/hadoop/etc/hadoop/mapred-site.xml
-              name: datanode1-cm2
-              subPath: mapred-site.xml
-            - mountPath: /opt/hadoop/etc/hadoop/yarn-site.xml
-              name: datanode1-cm3
-              subPath: yarn-site.xml
       restartPolicy: Always
-      volumes:
-        - configMap:
-            items:
-              - key: core-site.xml
-                path: core-site.xml
-            name: datanode1-cm0
-          name: datanode1-cm0
-        - configMap:
-            items:
-              - key: hdfs-site.xml
-                path: hdfs-site.xml
-            name: datanode1-cm1
-          name: datanode1-cm1
-        - configMap:
-            items:
-              - key: mapred-site.xml
-                path: mapred-site.xml
-            name: datanode1-cm2
-          name: datanode1-cm2
-        - configMap:
-            items:
-              - key: yarn-site.xml
-                path: yarn-site.xml
-            name: datanode1-cm3
-          name: datanode1-cm3

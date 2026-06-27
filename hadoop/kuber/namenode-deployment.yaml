@@ -30,7 +30,7 @@ spec:
           env:
             - name: ENSURE_NAMENODE_DIR
               value: /tmp/hadoop-root/dfs/name
-          image: namenode
+          image: borisvikvik/hadoop-namenode:latest
           name: namenode
           ports:
             - containerPort: 9870
