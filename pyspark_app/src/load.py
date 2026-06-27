@@ -6,7 +6,7 @@ from pyspark.ml.feature import VectorAssembler
 import yaml
 from hdfs import InsecureClient
 
-client = InsecureClient('http://localhost:9870', user='root')
+client = InsecureClient('http://namenode:9870', user='root')
 client.makedirs('/test')
 client.set_permission('/test', '777')
 

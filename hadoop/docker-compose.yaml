@@ -33,8 +33,9 @@ services:
       #   - ./config
       environment:
           ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+          HDFS-SITE.XML_dfs.permissions.enabled: false
       volumes:
-      # - /Users/bw/GITS/ITMO/SPARL_LAB2/data:/data
+      # # - /Users/bw/GITS/ITMO/SPARL_LAB2/data:/data
       - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
       - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
       - ./mapred-site.xml:/opt/hadoop/etc/hadoop/mapred-site.xml
@@ -100,7 +101,7 @@ services:
     #       memory: 16G  # Или 16G по вашему Mac M1
     #     reservations:
     #       memory: 8G
-    command: bash -c "sleep 15 && python src/load.py && python main.py"
+    command: bash -c "sleep 20 && python src/load.py && python main.py"
     # environment:
     #   - SPARK_EXECUTOR_MEMORY=2g
     #   - SPARK_DRIVER_MEMORY=8g
