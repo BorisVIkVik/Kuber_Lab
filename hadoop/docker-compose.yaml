@@ -91,22 +91,23 @@ services:
       # env_file:
       #   - ./config
    spark-py:
-    build: ../
+    build: ../pyspark_app/
+    image: borisvikvik/pyspark_app
     # image: borisvikvik/apache/spark-py
-    deploy:
-      resources:
-        limits:
-          memory: 16G  # Или 16G по вашему Mac M1
-        reservations:
-          memory: 8G
-    command: tail -f /dev/null  
-    environment:
-      - SPARK_EXECUTOR_MEMORY=2g
-      - SPARK_DRIVER_MEMORY=8g
-      - SPARK_EXECUTOR_CORES=1
-      - SPARK_SQL_ADAPTIVE_ENABLED=true
-      - SPARK_SQL_FILES_MAX_PARTITION_BYTES=134217728 
-    volumes:
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 16G  # Или 16G по вашему Mac M1
+    #     reservations:
+    #       memory: 8G
+    command: bash -c "sleep 15 && python src/load.py && python main.py"
+    # environment:
+    #   - SPARK_EXECUTOR_MEMORY=2g
+    #   - SPARK_DRIVER_MEMORY=8g
+    #   - SPARK_EXECUTOR_CORES=1
+    #   - SPARK_SQL_ADAPTIVE_ENABLED=true
+    #   - SPARK_SQL_FILES_MAX_PARTITION_BYTES=134217728 
+    # volumes:
         # - /Users/bw/GITS/ITMO/Scala_Lab/model/load.py:/opt/load.py
 
 
