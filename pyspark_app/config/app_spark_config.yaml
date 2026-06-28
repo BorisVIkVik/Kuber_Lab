@@ -17,5 +17,3 @@ spark:
     spark.sql.execution.arrow.pyspark.enabled: true
     spark.sql.files.maxPartitionBytes: 256m
     spark.sql.files.openCostInBytes: 4194304
-    spark.sql.extensions: io.delta.sql.DeltaSparkSessionExtension
-    spark.sql.catalog.spark_catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog

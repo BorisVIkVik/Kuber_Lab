@@ -10,3 +10,6 @@ kubectl wait --for=condition=complete job/hdfs-upload-food --timeout=600s
 kubectl delete job hdfs-upload-food --ignore-not-found
 kubectl apply -f load_py_job.yaml
 kubectl wait --for=condition=complete job/pyspark-load --timeout=600s
+
+kubectl delete job pyspark-load --ignore-not-found
+kubectl apply -f ./pyspark_app/kuber

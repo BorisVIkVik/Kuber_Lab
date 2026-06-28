@@ -24,10 +24,10 @@ def clasterisation():
     df = spark.read.parquet('hdfs://namenode:8020/test/output_data.parquet')
     
 
-    path = "resources/output_data"
+    # path = "resources/output_data"
 
-    dt = DeltaTable.forPath(spark, path).toDF()
-    dt.show(truncate=False)
+    # dt = DeltaTable.forPath(spark, path).toDF()
+    # dt.show(truncate=False)
 
     assembler = VectorAssembler(
         inputCols=["known_ingredients_n"],
