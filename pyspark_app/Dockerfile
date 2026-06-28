@@ -11,7 +11,7 @@ ADD . /app
 WORKDIR /app
 
 
-# RUN apt-get update && \
+RUN apt-get update && apt-get install -y nano
 #     mkdir -p /usr/share/man/man1 /usr/share/man/man2 && \
 #     apt-get install -y --no-install-recommends openjdk-21-jdk-headless && \
 #     apt-get clean && \

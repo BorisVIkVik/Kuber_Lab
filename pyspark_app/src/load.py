@@ -6,7 +6,7 @@ from pyspark.ml.feature import VectorAssembler
 import yaml
 from hdfs import InsecureClient
 
-client = InsecureClient('http://localhost:9870', user='root')
+client = InsecureClient('http://namenode:9870', user='root')
 client.makedirs('/test')
 client.set_permission('/test', '777')
 
@@ -24,9 +24,10 @@ for key, value in cfg['spark']['configs'].items():
 
 spark = builder.getOrCreate()
 
-df = spark.read.parquet('data/food.parquet').limit(1000)
+df = spark.read.parquet('/data/food.parquet').limit(100)
 
 
-df.write.mode("overwrite").parquet("hdfs://localhost:8020/test/output.parquet")
+df.write.mode("overwrite").parquet("hdfs://namenode:8020/test/output.parquet")
+client.set_permission('/test/output.parquet', '777')
 print(spark)
 spark.stop()

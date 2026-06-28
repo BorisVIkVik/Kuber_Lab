@@ -106,7 +106,7 @@ services:
       #   - ./config
    spark-py:
     build: ../pyspark_app/
-    image: borisvikvik/pyspark_app
+    image: borisvikvik/pyspark_app_test
     # image: 
     deploy:
       resources:
@@ -123,8 +123,8 @@ services:
       - SPARK_SQL_FILES_MAX_PARTITION_BYTES=134217728 
     # volumes:
     #   - ../pyspark_app/data:/app/data
-    # volumes:
-        # - /Users/bw/GITS/ITMO/Scala_Lab/model/load.py:/opt/load.py
+    volumes:
+        - ../pyspark_app/src/load.py:/app/src/load.py
 
 
 networks:

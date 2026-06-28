@@ -5,43 +5,47 @@
 [0m[[0m[0minfo[0m] [0m[0m#1 transferring dockerfile: 982B done[0m
 [0m[[0m[0minfo[0m] [0m[0m#1 DONE 0.0s[0m
 [0m[[0m[0minfo[0m] [0m[0m#2 [internal] load metadata for docker.io/library/eclipse-temurin:11[0m
-[0m[[0m[0minfo[0m] [0m[0m#2 DONE 5.6s[0m
-[0m[[0m[0minfo[0m] [0m[0m#3 [internal] load .dockerignore[0m
-[0m[[0m[0minfo[0m] [0m[0m#3 transferring context: 2B done[0m
+[0m[[0m[0minfo[0m] [0m[0m#2 ...[0m
+[0m[[0m[0minfo[0m] [0m[0m#3 [auth] library/eclipse-temurin:pull token for registry-1.docker.io[0m
 [0m[[0m[0minfo[0m] [0m[0m#3 DONE 0.0s[0m
-[0m[[0m[0minfo[0m] [0m[0m#4 [stage0 1/7] FROM docker.io/library/eclipse-temurin:11@sha256:d0abfceaee12f0b0704fd116dc3d520078ec1c355f59115a4b48f0f50e16f975[0m
-[0m[[0m[0minfo[0m] [0m[0m#4 resolve docker.io/library/eclipse-temurin:11@sha256:d0abfceaee12f0b0704fd116dc3d520078ec1c355f59115a4b48f0f50e16f975 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#2 [internal] load metadata for docker.io/library/eclipse-temurin:11[0m
+[0m[[0m[0minfo[0m] [0m[0m#2 DONE 1.3s[0m
+[0m[[0m[0minfo[0m] [0m[0m#4 [internal] load .dockerignore[0m
+[0m[[0m[0minfo[0m] [0m[0m#4 transferring context: 2B done[0m
 [0m[[0m[0minfo[0m] [0m[0m#4 DONE 0.0s[0m
-[0m[[0m[0minfo[0m] [0m[0m#5 [internal] load build context[0m
-[0m[[0m[0minfo[0m] [0m[0m#5 transferring context: 12.92kB 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#5 [stage0 1/7] FROM docker.io/library/eclipse-temurin:11@sha256:d0abfceaee12f0b0704fd116dc3d520078ec1c355f59115a4b48f0f50e16f975[0m
+[0m[[0m[0minfo[0m] [0m[0m#5 resolve docker.io/library/eclipse-temurin:11@sha256:d0abfceaee12f0b0704fd116dc3d520078ec1c355f59115a4b48f0f50e16f975 0.0s done[0m
 [0m[[0m[0minfo[0m] [0m[0m#5 DONE 0.0s[0m
-[0m[[0m[0minfo[0m] [0m[0m#6 [stage0 6/7] RUN ["chmod", "-R", "u=rX,g=rX", "/4/opt/docker"][0m
-[0m[[0m[0minfo[0m] [0m[0m#6 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#7 [mainstage 4/5] COPY --from=stage0 --chown=demiourgos728:root /2/opt/docker /opt/docker[0m
+[0m[[0m[0minfo[0m] [0m[0m#6 [internal] load build context[0m
+[0m[[0m[0minfo[0m] [0m[0m#6 transferring context: 17.39kB 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#6 DONE 0.0s[0m
+[0m[[0m[0minfo[0m] [0m[0m#7 [stage0 2/7] WORKDIR /opt/docker[0m
 [0m[[0m[0minfo[0m] [0m[0m#7 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#8 [stage0 2/7] WORKDIR /opt/docker[0m
+[0m[[0m[0minfo[0m] [0m[0m#8 [stage0 3/7] COPY 2/opt /2/opt[0m
 [0m[[0m[0minfo[0m] [0m[0m#8 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#9 [stage0 5/7] RUN ["chmod", "-R", "u=rX,g=rX", "/2/opt/docker"][0m
-[0m[[0m[0minfo[0m] [0m[0m#9 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#10 [mainstage 2/5] RUN id -u demiourgos728 1>/dev/null 2>&1 || (( getent group 0 1>/dev/null 2>&1 || ( type groupadd 1>/dev/null 2>&1 && groupadd -g 0 root || addgroup -g 0 -S root )) && ( type useradd 1>/dev/null 2>&1 && useradd --system --create-home --uid 1001 --gid 0 demiourgos728 || adduser -S -u 1001 -G root demiourgos728 ))[0m
-[0m[[0m[0minfo[0m] [0m[0m#10 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#11 [stage0 7/7] RUN ["chmod", "u+x,g+x", "/4/opt/docker/bin/testspark"][0m
-[0m[[0m[0minfo[0m] [0m[0m#11 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#12 [stage0 4/7] COPY 4/opt /4/opt[0m
-[0m[[0m[0minfo[0m] [0m[0m#12 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#13 [stage0 3/7] COPY 2/opt /2/opt[0m
+[0m[[0m[0minfo[0m] [0m[0m#9 [stage0 4/7] COPY 4/opt /4/opt[0m
+[0m[[0m[0minfo[0m] [0m[0m#9 DONE 0.1s[0m
+[0m[[0m[0minfo[0m] [0m[0m#10 [stage0 5/7] RUN ["chmod", "-R", "u=rX,g=rX", "/2/opt/docker"][0m
+[0m[[0m[0minfo[0m] [0m[0m#10 DONE 1.8s[0m
+[0m[[0m[0minfo[0m] [0m[0m#11 [stage0 6/7] RUN ["chmod", "-R", "u=rX,g=rX", "/4/opt/docker"][0m
+[0m[[0m[0minfo[0m] [0m[0m#11 DONE 0.3s[0m
+[0m[[0m[0minfo[0m] [0m[0m#12 [stage0 7/7] RUN ["chmod", "u+x,g+x", "/4/opt/docker/bin/testspark"][0m
+[0m[[0m[0minfo[0m] [0m[0m#12 DONE 0.2s[0m
+[0m[[0m[0minfo[0m] [0m[0m#13 [mainstage 2/5] RUN id -u demiourgos728 1>/dev/null 2>&1 || (( getent group 0 1>/dev/null 2>&1 || ( type groupadd 1>/dev/null 2>&1 && groupadd -g 0 root || addgroup -g 0 -S root )) && ( type useradd 1>/dev/null 2>&1 && useradd --system --create-home --uid 1001 --gid 0 demiourgos728 || adduser -S -u 1001 -G root demiourgos728 ))[0m
 [0m[[0m[0minfo[0m] [0m[0m#13 CACHED[0m
 [0m[[0m[0minfo[0m] [0m[0m#14 [mainstage 3/5] WORKDIR /opt/docker[0m
 [0m[[0m[0minfo[0m] [0m[0m#14 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#15 [mainstage 5/5] COPY --from=stage0 --chown=demiourgos728:root /4/opt/docker /opt/docker[0m
+[0m[[0m[0minfo[0m] [0m[0m#15 [mainstage 4/5] COPY --from=stage0 --chown=demiourgos728:root /2/opt/docker /opt/docker[0m
 [0m[[0m[0minfo[0m] [0m[0m#15 CACHED[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting to image[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting layers done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting manifest sha256:fae2648a87d40f27ccd5773459400c47776eaa18ace857c4846ad8aae372f587 done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting config sha256:385390664860971fbd48ca384f11be8db0b784880e88b3dcb6fdc6c1b65aa070 done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting attestation manifest sha256:94fdf7edcb528974b036b5ad50ed61767674d07f9c1bd6e5022e566ed49c6dc3 done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 exporting manifest list sha256:6b10571d81c1ac4b2b1908c333a562af192132ea39f1ad1109072849e83c988a done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 naming to docker.io/borisvikvik/scala-datamart:1.0 done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 unpacking to docker.io/borisvikvik/scala-datamart:1.0 done[0m
-[0m[[0m[0minfo[0m] [0m[0m#16 DONE 0.1s[0m
+[0m[[0m[0minfo[0m] [0m[0m#16 [mainstage 5/5] COPY --from=stage0 --chown=demiourgos728:root /4/opt/docker /opt/docker[0m
+[0m[[0m[0minfo[0m] [0m[0m#16 DONE 0.0s[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting to image[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting layers 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting manifest sha256:98b92da31b03c618675ee4965b736b77f6ee2802d170131b966595924eb6fc41 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting config sha256:b312b4f0bc0d863b8f3c15e2aa31cca6110f4d0662f2b21fba86c10a0912a48a 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting attestation manifest sha256:b25797437e1805af64e114062c81c0dd92cfbab782f22808a041012217bf0c1a 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 exporting manifest list sha256:83a23dbfc65fb0430d344f823989f7d0d523b6038800a8183f520b5621b1ac42 done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 naming to docker.io/borisvikvik/scala-datamart:1.0 done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 unpacking to docker.io/borisvikvik/scala-datamart:1.0 0.0s done[0m
+[0m[[0m[0minfo[0m] [0m[0m#17 DONE 0.2s[0m
 [0m[[0m[0minfo[0m] [0m[0mBuilt image borisvikvik/scala-datamart with tags [1.0][0m

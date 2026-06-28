@@ -42,16 +42,16 @@ object FileDemo {
     val df_col = tmp.na.drop()
     // val df = lines.toDF("line_text")
     println("Колонка извлечена")
-
+    println("Пишем в HDFS")
     df_col.write
       .mode("overwrite")
       .format("delta")                           
-      .save("./resources/output_data")
+      .save("hdfs://namenode:8020/test/resources/output_data")
     // val query = df_col.writeStream
     implicit val system = ActorSystem("client")
     val myBool = true
 
-    val request = Post("http://127.0.0.1:5000/api/endpoint", s"""{"bool":$myBool}""")
+    val request = Post("http://pyspark-debug:5000/api/endpoint", s"""{"bool":$myBool}""")
       .withEntity(HttpEntity(ContentTypes.`application/json`, s"""{"bool":$myBool}"""))
     println("Отправляю python!")
     // .outputMode("append")                      // Business logic for updates
