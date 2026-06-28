@@ -6,7 +6,7 @@ spark:
   
   
   configs:
-    spark.driver.memory: 8g
+    spark.driver.memory: 4g
     spark.executor.memory: 2g
     spark.driver.maxResultSize: 1g
     spark.sql.adaptive.enabled: true

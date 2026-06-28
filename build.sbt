@@ -1,8 +1,7 @@
 name := "TestSpark"
-version := "1.0"
+version := "2.0"
 libraryDependencies += "org.apache.spark" %% "spark-core" % "3.4.0"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.4.0"
-libraryDependencies += "io.delta" %% "delta-core" % "2.4.0"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % "10.5.3",
   "com.typesafe.akka" %% "akka-stream" % "2.8.8",
@@ -18,6 +17,7 @@ javaOptions ++= Seq(
 )
 
 dockerBaseImage := "eclipse-temurin:11"
+Docker / version := "latest" 
 Docker / packageName := "borisvikvik/scala-datamart"
 Docker / dockerUpdateLatest := true
 

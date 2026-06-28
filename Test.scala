@@ -17,9 +17,6 @@ object FileDemo {
     val conf = new SparkConf()
       .setAppName("FileReaderDemo")
       .setMaster("local[2]") 
-      .set("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-      .set("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
-      .set("spark.jars.packages", "io.delta:delta-core_2.12:2.2.0") 
       .set("spark.hadoop.dfs.client.use.datanode.hostname", "true") 
       .set("spark.hadoop.dfs.datanode.use.datanode.hostname", "true") 
     
@@ -49,7 +46,8 @@ object FileDemo {
     // val query = df_col.writeStream
     implicit val system = ActorSystem("client")
     val myBool = true
-
+    sc.stop()
+    spark.stop()
     val request = Post("http://pyspark-debug:5000/api/endpoint", s"""{"bool":$myBool}""")
       .withEntity(HttpEntity(ContentTypes.`application/json`, s"""{"bool":$myBool}"""))
     println("Отправляю python!")
@@ -69,8 +67,7 @@ object FileDemo {
 
     println(tmp.count())
     println(df_col.count())
-    sc.stop()
-    spark.stop()
+    
     Http().shutdownAllConnectionPools()
     system.terminate()
     Await.result(system.whenTerminated, 10.seconds)

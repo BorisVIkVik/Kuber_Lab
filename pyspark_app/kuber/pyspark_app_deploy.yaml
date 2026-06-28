@@ -16,7 +16,7 @@ spec:
       containers:
         - name: spark
           image: borisvikvik/pyspark_app_test
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent 
           command: ["/opt/spark/bin/spark-submit", "main.py"]
           workingDir: /app
           volumeMounts:

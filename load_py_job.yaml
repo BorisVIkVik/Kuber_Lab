@@ -9,8 +9,8 @@ spec:
       restartPolicy: Never
       containers:
         - name: load
-          image: borisvikvik/pyspark_app_test
-          imagePullPolicy: Never
+          image: borisvikvik/pyspark_app_test:latest
+          imagePullPolicy: IfNotPresent 
           workingDir: /app
           command:
             - /opt/spark/bin/spark-submit
