@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pyspark-debug
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pyspark-debug
+  template:
+    metadata:
+      labels:
+        app: pyspark-debug
+  
+    spec:
+      containers:
+        - name: spark
+          image: borisvikvik/pyspark_app_test
+          imagePullPolicy: Never
+          command: ["/opt/spark/bin/spark-submit", "main.py"]
+          workingDir: /app
+          volumeMounts:
+            - name: my-storage
+              mountPath: /data
+          ports:
+            - containerPort: 5000
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc

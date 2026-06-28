@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pyspark-load
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: load
+          image: borisvikvik/pyspark_app_test
+          imagePullPolicy: Never
+          workingDir: /app
+          command:
+            - /opt/spark/bin/spark-submit
+            - /app/src/load.py
+          volumeMounts:
+            - name: my-storage
+              mountPath: /data
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: my-pvc

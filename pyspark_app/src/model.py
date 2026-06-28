@@ -21,7 +21,7 @@ def clasterisation():
 
     spark = configure_spark_with_delta_pip(builder).getOrCreate()
 
-    df = spark.read.format('delta').load('resources/output_data')
+    df = spark.read.parquet('hdfs://namenode:8020/test/output_data.parquet')
     
 
     path = "resources/output_data"

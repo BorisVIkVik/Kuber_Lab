@@ -44,9 +44,8 @@ object FileDemo {
     println("Колонка извлечена")
     println("Пишем в HDFS")
     df_col.write
-      .mode("overwrite")
-      .format("delta")                           
-      .save("hdfs://namenode:8020/test/resources/output_data")
+      .mode("overwrite")                          
+      .parquet("hdfs://namenode:8020/test/output_data.parquet")
     // val query = df_col.writeStream
     implicit val system = ActorSystem("client")
     val myBool = true
