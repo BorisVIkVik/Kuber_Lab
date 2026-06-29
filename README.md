@@ -1,7 +1,11 @@
 # Викторов Борис Лабораторная 8.
 
 Работа посвящена миграции работы из 5-7 лаб в Kubernetes.
+## Kubernetes 
+Для запуска использовался minikube с docker, как драйвером.
+Запуск:
 
+    minikube start --cpu=4 --memory=10420 --vm-driver=docker
 ## Данные: OpenFoodFacts
 https://huggingface.co/datasets/openfoodfacts/product-database
 
