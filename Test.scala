@@ -46,8 +46,15 @@ object FileDemo {
     // val query = df_col.writeStream
     implicit val system = ActorSystem("client")
     val myBool = true
+
+    println(tmp.count())
+    println(df_col.count())
+    tmp.show(truncate = false)
+
+    df_col.show(truncate = false)
     sc.stop()
     spark.stop()
+
     val request = Post("http://pyspark-debug:5000/api/endpoint", s"""{"bool":$myBool}""")
       .withEntity(HttpEntity(ContentTypes.`application/json`, s"""{"bool":$myBool}"""))
     println("Отправляю python!")
@@ -60,13 +67,10 @@ object FileDemo {
     println(s"Ответ сервера: ${response.status}")
     
     
-    tmp.show(truncate = false)
-
-    df_col.show(truncate = false)
+    
     
 
-    println(tmp.count())
-    println(df_col.count())
+    
     
     Http().shutdownAllConnectionPools()
     system.terminate()

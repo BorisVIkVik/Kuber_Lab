@@ -13,7 +13,7 @@ https://huggingface.co/datasets/openfoodfacts/product-database
 ## Витрина данных
 Написана на Scala. Собиралась в docker образ с помощью:
 
-    sbt
+    sbt Docker/publishLocal  
 Работает как Job.
 
 ## Сервер PySpark

@@ -7,6 +7,6 @@ spec:
     spec:
       containers:
       - name: scala-datamart
-        image: borisvikvik/scala-datamart:1.0
+        image: borisvikvik/scala-datamart:latest
         imagePullPolicy: IfNotPresent 
       restartPolicy: Never

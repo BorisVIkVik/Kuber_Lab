@@ -1,5 +1,25 @@
 #!/bin/bash
 set -e
+
+
+IMAGES=(
+  borisvikvik/hadoop-namenode:latest
+  borisvikvik/hadoop-datanode:latest
+  borisvikvik/hadoop-nodemanager:latest
+  borisvikvik/hadoop-resourcemanager:latest
+  borisvikvik/pyspark_app_test:latest
+  borisvikvik/scala-datamart:latest
+  busybox:latest
+)
+
+echo "Pulling images into minikube..."
+for img in "${IMAGES[@]}"; do
+  echo "Pulling $img into minikube"
+  minikube image pull "$img"
+done
+echo "All images pulled."
+
+
 # Шаг 1: загрузка данных в HDFS (если нужен)
 kubectl apply -f ./pvc.yaml
 kubectl apply -f ./hadoop/kuber
