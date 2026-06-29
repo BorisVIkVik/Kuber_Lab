@@ -4,3 +4,4 @@
 /pyspark_app/src/__pycache__/
 /pyspark_app/py_spark_env/
 /target/
+/data/food.parquet
