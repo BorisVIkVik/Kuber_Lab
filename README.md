@@ -26,11 +26,14 @@ https://huggingface.co/datasets/openfoodfacts/product-database
 ## Структура
 ```
 .
-├── config
 ├── data
 ├── hadoop
+│   ├── kuber
 │   └── test.sh
-└── src
+└── pyspark_app
+    ├── config
+    ├── kuber
+    └── src
 
 ```
 Папки:
